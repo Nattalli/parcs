@@ -13,22 +13,29 @@ public class VigenereCipher {
 
         int numWorkers = 2;
         int chunkSize = text.length() / numWorkers;
-        AMInfo info = new AMInfo(curTask, null);
 
+        AMInfo info = new AMInfo(curTask, null);
         StringBuilder finalResult = new StringBuilder();
+
+        point[] points = new point[numWorkers];
+        channel[] channels = new channel[numWorkers];
+
         for (int i = 0; i < numWorkers; i++) {
+            points[i] = info.createPoint();
+            channels[i] = points[i].createChannel();
+            points[i].execute("VigenereTask");
+
             int start = i * chunkSize;
             int end = (i == numWorkers - 1) ? text.length() : start + chunkSize;
             String part = text.substring(start, end);
 
-            point p = info.createPoint();
-            channel c = p.createChannel();
-            p.execute("VigenereTask");
-            c.write(new TextChunk(part));
-            c.write(key);
+            channels[i].write(new TextChunk(part));
+            channels[i].write(key);
+        }
 
+        for (int i = 0; i < numWorkers; i++) {
             System.out.println("Waiting for result from worker " + i + "...");
-            String result = (String) c.readObject();
+            String result = (String) channels[i].readObject();
             finalResult.append(result);
         }
 
