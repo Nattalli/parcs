@@ -13,7 +13,6 @@ public class VigenereCipher {
 
         int numWorkers = 2;
         int chunkSize = text.length() / numWorkers;
-
         AMInfo info = new AMInfo(curTask, null);
 
         StringBuilder finalResult = new StringBuilder();
