@@ -11,7 +11,7 @@ public class VigenereCipher {
         String text = input[0];
         String key = input[1];
 
-        int numWorkers = 6;
+        int numWorkers = 1;
         int chunkSize = text.length() / numWorkers;
 
         AMInfo info = new AMInfo(curTask, null);
