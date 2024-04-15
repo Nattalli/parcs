@@ -1,4 +1,3 @@
-
 import parcs.*;
 
 public class VigenereTask implements AM {

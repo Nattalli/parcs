@@ -1,4 +1,3 @@
-
 import java.io.Serializable;
 
 public class TextChunk implements Serializable {

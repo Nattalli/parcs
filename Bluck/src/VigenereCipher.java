@@ -1,4 +1,3 @@
-
 import parcs.*;
 import java.util.Scanner;
 import java.io.File;
@@ -16,11 +15,12 @@ public class VigenereCipher {
         point p = info.createPoint();
         channel c = p.createChannel();
         p.execute("VigenereTask");
-        c.write(new TextChunk(text));
+        c.write(new TextChunk(text));  // Assuming TextChunk class is imported or in the same package
         c.write(key);
 
         System.out.println("Waiting for result...");
-        System.out.println("Result: " + c.readString());
+        Object result = c.readObject();  // Using readObject and casting to String
+        System.out.println("Result: " + (String) result);
         curTask.end();
     }
 
