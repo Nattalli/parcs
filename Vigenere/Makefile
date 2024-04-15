@@ -1,24 +1,19 @@
-all: build run
+all: run
 
 clean:
 	rm -f out/*.jar
 
-out/TextChunk.class: src/TextChunk.java
-	javac --release 11 -d out src/TextChunk.java
+out/VigenereTask.jar: out/parcs.jar src/VigenereTask.java src/TextChunk.java
+	@javac -cp out/parcs.jar --release 11 src/VigenereTask.java src/TextChunk.java
+	@jar cf out/VigenereTask.jar -C src VigenereTask.class -C src TextChunk.class
+	@rm -f src/VigenereTask.class src/TextChunk.class
 
-out/VigenereTask.class: src/VigenereTask.java out/TextChunk.class
-	javac --release 11 -cp out -d out src/VigenereTask.java
-
-out/VigenereCipher.class: src/VigenereCipher.java out/TextChunk.class
-	javac --release 11 -cp out -d out src/VigenereCipher.java
-
-out/VigenereTask.jar: out/VigenereTask.class
-	jar cf out/VigenereTask.jar -C out VigenereTask.class -C out TextChunk.class
-
-out/VigenereCipher.jar: out/VigenereCipher.class out/TextChunk.class
-	jar cf out/VigenereCipher.jar -C out VigenereCipher.class -C out TextChunk.class
+out/VigenereCipher.jar: out/parcs.jar src/VigenereCipher.java src/TextChunk.java
+	@javac -cp out/parcs.jar --release 11 src/VigenereCipher.java src/TextChunk.java
+	@jar cf out/VigenereCipher.jar -C src VigenereCipher.class -C src TextChunk.class
+	@rm -f src/VigenereCipher.class src/TextChunk.class
 
 build: out/VigenereTask.jar out/VigenereCipher.jar
 
 run: out/VigenereCipher.jar out/VigenereTask.jar
-	java -cp 'out/parcs.jar:out/VigenereCipher.jar' VigenereCipher
+	@cd out && java -cp 'parcs.jar:VigenereCipher.jar' VigenereCipher
