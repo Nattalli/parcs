@@ -9,10 +9,10 @@ out/VigenereTask.jar: out/parcs.jar src/VigenereTask.java src/TextChunk.java
 	@jar cf out/VigenereTask.jar -C src VigenereTask.class -C src TextChunk.class
 	@rm -f src/VigenereTask.class src/TextChunk.class
 
-out/VigenereCipher.jar: out/parcs.jar src/VigenereCipher.java
-	@javac -cp out/parcs.jar src/VigenereCipher.java
-	@jar cf out/VigenereCipher.jar -C src VigenereCipher.class
-	@rm -f src/VigenereCipher.class
+out/VigenereCipher.jar: out/parcs.jar src/VigenereCipher.java src/TextChunk.java
+	@javac -cp out/parcs.jar src/VigenereCipher.java src/TextChunk.java
+	@jar cf out/VigenereCipher.jar -C src VigenereCipher.class -C src TextChunk.class
+	@rm -f src/VigenereCipher.class src/TextChunk.class
 
 build: out/VigenereTask.jar out/VigenereCipher.jar
 
