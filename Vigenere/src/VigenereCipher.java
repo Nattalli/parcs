@@ -1,3 +1,4 @@
+
 import parcs.*;
 import java.util.Scanner;
 import java.io.File;
@@ -19,16 +20,16 @@ public class VigenereCipher {
         c.write(key);
 
         System.out.println("Waiting for result...");
-        String result = (String) c.readObject();
-        System.out.println("Result: " + result);
+        Object result = c.readObject();
+        System.out.println("Result: " + (String) result);
         curTask.end();
     }
 
     private static String[] readInputFile(String filename) throws Exception {
-        try (Scanner sc = new Scanner(new File(filename))) {
-            String text = sc.nextLine();
-            String key = sc.nextLine();
-            return new String[]{text, key};
-        }
+        Scanner sc = new Scanner(new File(filename));
+        String text = sc.nextLine();
+        String key = sc.nextLine();
+        sc.close();
+        return new String[]{text, key};
     }
 }
