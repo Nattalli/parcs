@@ -1,19 +1,20 @@
+
 all: run
 
 clean:
-	rm -f out/Bluck.jar out/DFS.jar
+	rm -f out/*.jar
 
-out/Bluck.jar: out/parcs.jar src/Bluck.java src/Node.java
-	@javac -cp out/parcs.jar src/Bluck.java src/Node.java
-	@jar cf out/Bluck.jar -C src Bluck.class -C src Node.class
-	@rm -f src/Bluck.class src/Node.class
+out/VigenereTask.jar: out/parcs.jar src/VigenereTask.java src/TextChunk.java
+	@javac -cp out/parcs.jar src/VigenereTask.java src/TextChunk.java
+	@jar cf out/VigenereTask.jar -C src VigenereTask.class -C src TextChunk.class
+	@rm -f src/VigenereTask.class src/TextChunk.class
 
-out/DFS.jar: out/parcs.jar src/DFS.java src/Node.java
-	@javac -cp out/parcs.jar src/DFS.java src/Node.java
-	@jar cf out/DFS.jar -C src DFS.class -C src Node.class
-	@rm -f src/DFS.class src/Node.class
+out/VigenereCipher.jar: out/parcs.jar src/VigenereCipher.java
+	@javac -cp out/parcs.jar src/VigenereCipher.java
+	@jar cf out/VigenereCipher.jar -C src VigenereCipher.class
+	@rm -f src/VigenereCipher.class
 
-build: out/Bluck.jar out/DFS.jar
+build: out/VigenereTask.jar out/VigenereCipher.jar
 
-run: out/Bluck.jar out/DFS.jar
-	@cd out && java -cp 'parcs.jar:Bluck.jar' Bluck
+run: out/VigenereCipher.jar out/VigenereTask.jar
+	@cd out && java -cp 'parcs.jar:VigenereCipher.jar' VigenereCipher
