@@ -8,7 +8,7 @@ public class VigenereCipher {
         task curTask = new task();
         curTask.addJarFile("VigenereTask.jar");
 
-        String[] input = readInputFile(curTask.findFile("input.txt"));
+        String[] input = readInputFile(curTask.findFile("input3.txt"));
         String text = input[0];
         String key = input[1];
 
