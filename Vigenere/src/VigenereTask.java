@@ -2,11 +2,16 @@ import parcs.*;
 
 public class VigenereTask implements AM {
     public void run(AMInfo info) {
-        TextChunk chunk = (TextChunk) info.parent.readObject();
-        String key = (String) info.parent.readObject();
-        
-        String encryptedText = encryptVigenere(chunk.getTextSegment(), key);
-        info.parent.write(encryptedText);
+        try {
+            TextChunk chunk = (TextChunk) info.parent.readObject();
+            String key = (String) info.parent.readObject();
+
+            String encryptedText = encryptVigenere(chunk.getTextSegment(), key);
+            info.parent.write(encryptedText);
+        } catch (Exception e) {
+            e.printStackTrace();
+            info.parent.write(null);
+        }
     }
 
     private String encryptVigenere(String text, String key) {

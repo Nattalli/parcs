@@ -1,4 +1,3 @@
-
 import parcs.*;
 import java.util.Scanner;
 import java.io.File;
@@ -16,20 +15,20 @@ public class VigenereCipher {
         point p = info.createPoint();
         channel c = p.createChannel();
         p.execute("VigenereTask");
-        c.write(new TextChunk(text));  // Correctly import or define TextChunk in the same package
+        c.write(new TextChunk(text));
         c.write(key);
 
         System.out.println("Waiting for result...");
-        Object result = c.readObject();  // Using readObject and casting to String
-        System.out.println("Result: " + (String) result);
+        String result = (String) c.readObject();
+        System.out.println("Result: " + result);
         curTask.end();
     }
 
     private static String[] readInputFile(String filename) throws Exception {
-        Scanner sc = new Scanner(new File(filename));
-        String text = sc.nextLine();
-        String key = sc.nextLine();
-        sc.close();
-        return new String[]{text, key};
+        try (Scanner sc = new Scanner(new File(filename))) {
+            String text = sc.nextLine();
+            String key = sc.nextLine();
+            return new String[]{text, key};
+        }
     }
 }
